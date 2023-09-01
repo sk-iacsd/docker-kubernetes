@@ -1,0 +1,12 @@
+* docker run = docker create + docker -a start
+
+1) override default command
+2)listing rinning container -- docker ps
+3) listing all the container --- docker ps --all
+4) restarting stopped container ----- docker start -a <cont_id>   ------ without -a no output will be returned
+5) removing stopped container ---- docker system prune 
+6) retrieve logs ---- docker logs <cont_id>   ---- this will return all the logs without runing or creating the container. good for debug
+7) Stoppoing the container --- 
+	a) docker stop <c_id> ---- this will do cleaning activities first and then terminate if not completed the activity in 10 secs then execute kill command internally
+	b) docker kill <c_id> ---- This directly kill the container
+
