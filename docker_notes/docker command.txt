@@ -1,12 +1,36 @@
 * docker run = docker create + docker -a start
 
 1) override default command
+
 2)listing rinning container -- docker ps
+
 3) listing all the container --- docker ps --all
+
 4) restarting stopped container ----- docker start -a <cont_id>   ------ without -a no output will be returned
+
 5) removing stopped container ---- docker system prune 
+
 6) retrieve logs ---- docker logs <cont_id>   ---- this will return all the logs without runing or creating the container. good for debug
+
 7) Stoppoing the container --- 
 	a) docker stop <c_id> ---- this will do cleaning activities first and then terminate if not completed the activity in 10 secs then execute kill command internally
 	b) docker kill <c_id> ---- This directly kill the container
+
+8) Running commands inside the running container--- docker exec -it <c_id> <command>
+	exmample: docker exec -it e8c6fec874ac redis-cli     ------- e8c6fec874ac  is running container of redis
+	Once I am inside the container I can write the redis commands
+		127.0.0.1:6379> set myname Shubham   --- set myname=shubham
+		127.0.0.1:6379> get myname  --- returns the value of myname
+	Here the -it = -i -t
+		-i = This connects to the imput channel of the container(stdin), and also provide the permission to input
+		-t = This is for well formated output from the container to local terminal
+ 
+9) Command prompt in the container ---- docker exec -it <c_id> sh
+	This will open the shell processor in the container. there are different command processors like bash, powershell, zsh and sh.
+	Once the command is executed we will be in that container and execute the shell script there.
+	
+	prompt can be used with the ------ docker run -it <image_name> sh
+
+10) Docker containers are isolated from each other 
+
 
