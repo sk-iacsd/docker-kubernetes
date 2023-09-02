@@ -33,4 +33,34 @@
 
 10) Docker containers are isolated from each other 
 
+11) Creating Docker image:
+	a) Dockerfile
+		FROM 		
+			1)specify the base image for our new docker image
+		WORKDIR COPY(dependencies) RUN COPY(directory)
+			2)define Workdir, copy the folder and Run commands to add additional dependancies
+		CMD	
+			3) specify command to run the container startup
+	2) To see more verbose use progress flag in docker while build
+		----- docker build --progress=plain .
+			=========OR=========
+		----- docker build --no-cache --progress=plain .   ----- created new image without useing the previous cache
+	Order of the run command does matter while build. if we keep the same order then build will use the existing image else it will again fetch/download
+	3) Tagging the image
+		docker build -t shubhamkh29/redis:latest .
+		-t = tag
+		shubhamkh29 = docker id
+		redis = repo/project name
+		latest = version
+		. = current directory from where files and folders should be picked in the container
 
+12) Image generation with docker commit from running container  ----- Try to use Dockerfile only instead of commiting new image for best practices
+	Start the container - <docker run image> or <docker start container>
+	then connect to input channel of the container -- <docker exec -it container sh> other option to do this while running the container like <docker run -it image sh>
+	install more dependencies then commit in new image
+	a) windows user - docker commit -c <"CMD 'redis-server'"> <running CONTAINERID> <docker_id/repo:latest>
+	b) other users - docker commit -c <'CMD ["redis-server"]'> <CONTAINERID> <docker_id/repo:latest>
+
+13) Container Port Maping
+	---- docker run -p <local_port ex-8080>:<container_port ex-5050> <image_id>
+	Make sure that app inside the container is running on example port-5050
