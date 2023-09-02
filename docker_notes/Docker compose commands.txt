@@ -1,0 +1,16 @@
+docker-compose.yml helps to keep the bidge, network, data shareing between multiple containers. provides access all containers with each other
+1) version : '3' === this is required to define the docker-composer version
+
+2) services: this contains all the container we want to use in our application
+	a) Container name
+		1) image: OR build: path of Dockerfile
+		2) port: port numbers to connection the local machine ports with container's '8080:8080'
+		3) depends_on: depends on the container which is required to be created fist then this one
+		4) restart: ther are four policies 
+			a) "no" : No restart even in case of any failure
+			b) alway : Always restart even if it crashes
+			c) on-failure : Restart only if container fails with an error code
+			d) unless-stopped : Always restart unless forcefully stopped.
+
+3)
+
