@@ -20,3 +20,9 @@ def calculator():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+# @app.route("/")
+# def hello_function():
+#     return "Hello from Flask"
+# if __name__ == '__main__':
+#     app.run()
