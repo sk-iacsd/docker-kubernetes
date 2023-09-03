@@ -12,5 +12,15 @@ docker-compose.yml helps to keep the bidge, network, data shareing between multi
 			c) on-failure : Restart only if container fails with an error code
 			d) unless-stopped : Always restart unless forcefully stopped.
 
-3)
+3) to override the startup command from the image use command key
+	example:
+		react-test:
+			build: 
+			context: .
+			dockerfile: Dockerfile.dev
+			volumes:
+			- /app/node_modules
+			- .:/app
+			command: ["npm", "run", "test"]
+		 ------- here the existing startup command for the Dockerfile.dev was CMD ["npm", "run", "start"]
 

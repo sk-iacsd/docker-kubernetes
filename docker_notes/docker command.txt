@@ -64,3 +64,34 @@
 13) Container Port Maping
 	---- docker run -p <local_port ex-8080>:<container_port ex-5050> <image_id>
 	Make sure that app inside the container is running on example port-5050
+
+14) Docker Volume
+	This is useful for the continuous build. In case of any small code change we don't need to build the image again. 
+	every time while fetching the folders docker will take the reference of local machine files.
+	--- docker run -p 3000:3000 -v /app/node_modules -v ${PWD}:/app <image_id>
+		a) -p 3000:3000 = mapping the local machin port : docker machine port
+		b) -v ${PWD}:/app = This will make the reference of current local working directory to the docker app folder
+		c) -v /app/node_modules = this will put the bookmark on the node_modules folder of the docker container.
+				As we are not keeping this node_modules folder in local machine , docker will fail to make a reference of this folder
+				while running point b. So, by adding this docker will use it own /app/node_modules folder only.
+
+15)	How to call multiple Base images
+	To use the data from the 1st base image to 2nd base image we must provide the alias to 1st image.
+	startup command must not be provided in 1st image, instead use the run command which will generate the output
+	that can be used by 2nd image
+	example: 
+			FROM node:alpine3.18 as builder
+
+			WORKDIR /app
+
+			COPY ./package.json .
+			RUN npm install
+
+			COPY . .
+
+			RUN npm run build
+
+			# we need the build folder from the above work, so that we can use those static files only in prod not the all packages
+
+			FROM nginx
+			COPY --from=builder /app/build /usr/share/nginx/html
